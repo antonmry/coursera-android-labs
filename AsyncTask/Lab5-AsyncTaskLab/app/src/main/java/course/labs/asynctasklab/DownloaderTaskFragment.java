@@ -29,25 +29,17 @@ public class DownloaderTaskFragment extends Fragment {
 		
 		// TODO: Create new DownloaderTask that "downloads" data
 
-       DownloaderTask mDownloaderTask = new DownloaderTask();
+        
 		
 		// TODO: Retrieve arguments from DownloaderTaskFragment
-		// Prepare them for use with DownloaderTask.
-        //here is your list array
+		// Prepare them for use with DownloaderTask. 
 
-        Bundle bundle=getArguments();
-
-		ArrayList<Integer> myFriendArray = bundle.getIntegerArrayList("friends");
-
-        Integer[] myFriendIds = new Integer[myFriendArray.size()];
-        int i = 0;
-        for (int value : myFriendArray) {
-            myFriendIds[i++] = value;
-        }
-
-        // TODO: Start the DownloaderTask
+        
+        
+        
+		// TODO: Start the DownloaderTask 
 		
-        mDownloaderTask.execute(myFriendIds);
+        
 
 	}
 
@@ -81,27 +73,21 @@ public class DownloaderTaskFragment extends Fragment {
 	// out). Ultimately, it must also pass newly available data back to 
 	// the hosting Activity using the DownloadFinishedListener interface.
 
-	public class DownloaderTask extends AsyncTask<Integer, Void, String[]> {
+//	public class DownloaderTask extends ... {
+	
 
-		@Override
-		protected void onPreExecute() {
-			// Nothing to do here
-		}
-
-        @Override
-        protected String[] doInBackground(Integer... friendsId) {
-            return downloadTweets(friendsId);
-        }
-
-        @Override
-        protected void onPostExecute(String[] result) {
-            mCallback.notifyDataRefreshed(result);
-        }
-
+    
+    
+    
+    
+    
+    
+    
         // TODO: Uncomment this helper method
-        // Simulates downloading Twitter data from the network
+		// Simulates downloading Twitter data from the network
 
-		private String[] downloadTweets(Integer resourceIDS[]) {
+        /*
+         private String[] downloadTweets(Integer resourceIDS[]) {
 			final int simulatedDelay = 2000;
 			String[] feeds = new String[resourceIDS.length];
 			try {
@@ -138,5 +124,14 @@ public class DownloaderTaskFragment extends Fragment {
 
 			return feeds;
 		}
-	}
+         */
+
+
+    
+    
+    
+    
+    
+    
+
 }
