@@ -1,5 +1,17 @@
 #!/bin/sh
 
+die () {
+	echo >&2 "$@"
+	exit 1
+}
+
+[ "$#" -eq 1 ] || die "1 argument required, $# provided"
+
+if [ ! -f $1 ]; then
+	echo "File not found!";
+	exit 1;
+fi
+
 while true
 do
 	read -s -p "Password: " password
@@ -10,40 +22,7 @@ do
 	echo "Please try again"
 done
 
-# Assignement 2
+openssl aes-128-cbc -salt -in $1 -out $1.aes -k $password  || { echo 'Encryptation failed' ; exit 1; }
 
-#openssl aes-128-cbc -salt -in TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityOne.java  -out TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityOne.java.aes -k $password
+git checkout -- $1  || { echo 'Checkout failed' ; exit 1; }
 
-#cp TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityOne.java.original TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityOne.java
-
-#openssl aes-128-cbc -salt -in TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityTwo.java -out TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityTwo.java.aes -k $password
-
-#cp TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityTwo.java.original TheActivityClass/Lab2_ActivityLab/app/src/main/java/course/labs/activitylab/ActivityTwo.java
-
-# Assignement 5
-#openssl aes-128-cbc -salt -in AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java -out AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java.aes -k $password 
-
-#cp AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java.original AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java
-
-# Assignement 6
-#openssl aes-128-cbc -salt -in Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/DownloaderTaskFragment.java -out Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/DownloaderTaskFragment.java.aes -k $password 
-
-#cp Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/DownloaderTaskFragment.java.original Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/DownloaderTaskFragment.java
-
-#openssl aes-128-cbc -salt -in Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/MainActivity.java -out Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/MainActivity.java.aes -k $password 
-
-#cp Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/MainActivity.java.original Notifications/Lab6_NotificationsLab/app/src/main/java/course/labs/notificationslab/MainActivity.java
-
-# Assignement 3
-
-openssl aes-128-cbc -salt -in Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ActivityLoaderActivity.java -out Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ActivityLoaderActivity.java.aes -k $password 
-
-git checkout -- Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ActivityLoaderActivity.java
-
-openssl aes-128-cbc -salt -in Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ExplicitlyLoadedActivity.java -out Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ExplicitlyLoadedActivity.java.aes -k $password 
-
-git checkout -- Intents/Lab3a_IntentsLab/app/src/main/java/course/labs/intentslab/ExplicitlyLoadedActivity.java
-
-openssl aes-128-cbc -salt -in Intents/Lab3a_MyBrowser/app/src/main/AndroidManifest.xml -out Intents/Lab3a_MyBrowser/app/src/main/AndroidManifest.xml.aes -k $password 
-
-rm Intents/Lab3a_MyBrowser/app/src/main/AndroidManifest.xml

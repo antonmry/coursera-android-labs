@@ -1,8 +1,26 @@
 #!/bin/sh
 
-echo "Please enter the password";
-read -s password;
+die () {
+	echo >&2 "$@"
+	exit 1
+}
 
-cp AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java.original
+[ "$#" -eq 1 ] || die "1 argument required, $# provided"
 
-openssl aes-128-cbc -d -salt -in AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java.aes -out AsyncTask/Lab5-AsyncTaskLab/app/src/main/java/course/labs/asynctasklab/DownloaderTaskFragment.java -k $password
+if [ ! -f $1 ]; then
+	echo "File not found!";
+	exit 1;
+fi
+
+while true
+do
+	read -s -p "Password: " password
+	echo
+	read -s -p "Password (again): " password2
+	echo
+	[ "$password" = "$password2" ] && break
+	echo "Please try again"
+done
+
+openssl aes-128-cbc -d -salt -in $1.aes -out $1 -k $password  || { echo 'Dencryptation failed' ; exit 1; }
+
